@@ -29,8 +29,11 @@ public class UsuarioController {
     }
 
     @RequestMapping("home")
-    public String home(){
-        return "home";
+    public ModelAndView home(HttpSession sesion){
+        UsuarioEntity usuario=(UsuarioEntity) sesion.getAttribute("usuario");
+        ModelAndView mv = new ModelAndView("home");
+        mv.addObject("usuario", usuario);
+        return mv;
     }
 
     @RequestMapping("actionLogin")

@@ -21,13 +21,13 @@ public class UsuarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "idusuario")
     private Integer idUsuario;
 
     @Column(name = "nombre_completo")
     private String nombreCompleto;
 
-    @Column(name = "usuario")
+    @Column(name = "user")
     private String usuario;
 
     @Column(name = "contrasena")
@@ -37,7 +37,7 @@ public class UsuarioEntity {
     private String email;
 
     @Column(name = "tipo_documento")
-    private Integer tipoDocumento;
+    private String tipoDocumento;
 
     @Column(name = "dni")
     private String documento;

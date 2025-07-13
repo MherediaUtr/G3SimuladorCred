@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Inicio - Simulador de Créditos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./static/css/home.css">
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
     <div class="circle"></div>
@@ -14,7 +14,7 @@
     <header>
         <h1>Simulador de Créditos</h1>
         <p class="description">
-            Bienvenido al sistema de simulación de créditos. Desde aquí podrás conocer cuánto pagarías por un préstamo en base al monto, plazo y tasa. ¡Empieza tu experiencia financiera!
+            Bienvenido <span th:text="${usuario.getNombreCompleto()}"></span> al sistema de simulación de créditos. Desde aquí podrás conocer cuánto pagarías por un préstamo en base al monto, plazo y tasa. ¡Empieza tu experiencia financiera!
         </p>
     </header>
 
