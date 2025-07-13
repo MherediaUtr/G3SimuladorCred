@@ -1,0 +1,76 @@
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #2b5876, #4e4376);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    overflow: hidden;
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 0.2em;
+    animation: fadeInDown 1s ease-out;
+}
+
+p.description {
+    font-size: 1.2em;
+    max-width: 600px;
+    margin: 0 auto 2em;
+    animation: fadeInUp 1.2s ease-out;
+}
+
+.circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    position: absolute;
+    animation: float 6s ease-in-out infinite;
+}
+
+.circle:nth-child(1) {
+    top: 10%;
+    left: 20%;
+    width: 100px;
+    height: 100px;
+}
+
+.circle:nth-child(2) {
+    top: 70%;
+    left: 75%;
+    width: 150px;
+    height: 150px;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+footer {
+    position: absolute;
+    bottom: 15px;
+    font-size: 0.9em;
+    opacity: 0.8;
+}
