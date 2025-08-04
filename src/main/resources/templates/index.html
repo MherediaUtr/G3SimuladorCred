@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestión de Productos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: #002B5B;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 20px 15px;
+      color: #fff;
+    }
+
+    .sidebar h4 {
+      font-size: 1.4rem;
+      margin-bottom: 30px;
+    }
+
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      margin: 15px 0;
+      padding: 8px;
+      border-radius: 5px;
+    }
+
+    .sidebar a.active,
+    .sidebar a:hover {
+      background-color: #0066cc;
+    }
+
+    .main-content {
+      margin-left: 260px;
+      padding: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+    }
+
+    .user-info img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .table th,
+    .table td {
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h4>Simulador de Créditos</h4>
+    <a href="#" class="active">Gestión de Productos Crediticios</a>
+    <a href="#">Gestión de Usuarios</a>
+    <a href="#">Gestión de Simulaciones</a>
+  </div>
+
+  <!-- Main content -->
+  <div class="main-content">
+    <div class="header">
+      <h2 class="fw-bold">Productos de Crédito</h2>
+      <div class="user-info">
+        <img src="https://i.pravatar.cc/32" alt="Usuario">
+        <span class="me-3">admin</span>
+        <button class="btn btn-sm btn-outline-danger">Cerrar sesión</button>
+      </div>
+    </div>
+
+    <div class="mb-3 text-end">
+      <button class="btn btn-primary" onclick="abrirFormulario()">+ Nuevo Producto</button>
+    </div>
+
+    <table class="table table-striped table-hover">
+      <thead class="table-primary">
+        <tr>
+          <th>ID</th>
+          <th>Descripción</th>
+          <th>Tasa</th>
+          <th>Meses Mín</th>
+          <th>Meses Máx</th>
+          <th>Ingreso Mín</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaProductos"></tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="productoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <form id="formProducto" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitulo">Registrar Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body row g-3">
+          <input type="hidden" name="idProd" />
+          <div class="col-md-6">
+            <label class="form-label">Descripción</label>
+            <input type="text" class="form-control" name="descripcion" required />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Tasa (%)</label>
+            <input type="number" class="form-control" name="tasa" step="0.01" required />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Ingreso Mínimo (S/)</label>
+            <input type="number" class="form-control" name="ingresoMinimo" step="0.01" required />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Meses Mínimo</label>
+            <input type="number" class="form-control" name="mesesMinimo" required />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Meses Máximo</label>
+            <input type="number" class="form-control" name="mesesMaximo" required />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Monto Mínimo</label>
+            <input type="number" class="form-control" name="montoMinimo" step="0.01" required />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Monto Máximo</label>
+            <input type="number" class="form-control" name="montoMaximo" step="0.01" required />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Crédito Inicial</label>
+            <input type="number" class="form-control" name="credInicial" step="0.01" required />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">¿Requiere Seguro?</label>
+            <select class="form-select" name="requiereSeguro" required>
+              <option value="true">Sí</option>
+              <option value="false">No</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">% Seguro</label>
+            <input type="number" class="form-control" name="porcSeguro" step="0.01" required />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">% Mora</label>
+            <input type="number" class="form-control" name="porcMora" step="0.01" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Guardar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const API_URL = 'http://localhost:8080/api/productos';
+    const form = document.getElementById('formProducto');
+    const tabla = document.getElementById('tablaProductos');
+    const modalElement = document.getElementById('productoModal');
+    const modal = new bootstrap.Modal(modalElement);
+    const tituloModal = document.getElementById('modalTitulo');
+    let editandoId = null;
+
+    function abrirFormulario(producto = null) {
+      form.reset();
+      editandoId = null;
+      tituloModal.textContent = producto ? 'Editar Producto' : 'Registrar Producto';
+
+      if (producto) {
+        editandoId = producto.idProd;
+        form.descripcion.value = producto.descripcion;
+        form.tasa.value = producto.tasa;
+        form.ingresoMinimo.value = producto.ingresoMinimo;
+        form.mesesMinimo.value = producto.mesesMinimo;
+        form.mesesMaximo.value = producto.mesesMaximo;
+        form.montoMinimo.value = producto.montoMinimo;
+        form.montoMaximo.value = producto.montoMaximo;
+        form.credInicial.value = producto.credInicial;
+        form.requiereSeguro.value = producto.requiereSeguro;
+        form.porcSeguro.value = producto.porcSeguro;
+        form.porcMora.value = producto.porcMora;
+      }
+
+      modal.show();
+    }
+
+    async function cargarProductos() {
+      const res = await fetch(API_URL);
+      const data = await res.json();
+      tabla.innerHTML = data.map(p => `
+        <tr>
+          <td>${p.idProd}</td>
+          <td>${p.descripcion}</td>
+          <td>${p.tasa}</td>
+          <td>${p.mesesMinimo}</td>
+          <td>${p.mesesMaximo}</td>
+          <td>${p.ingresoMinimo}</td>
+          <td>
+            <button class="btn btn-sm btn-warning me-1" onclick='abrirFormulario(${JSON.stringify(p)})'>Editar</button>
+            <button class="btn btn-sm btn-danger" onclick='eliminarProducto(${p.idProd})'>Eliminar</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const body = {
+        descripcion: formData.get('descripcion'),
+        tasa: parseFloat(formData.get('tasa')),
+        mesesMinimo: parseInt(formData.get('mesesMinimo')),
+        mesesMaximo: parseInt(formData.get('mesesMaximo')),
+        ingresoMinimo: parseFloat(formData.get('ingresoMinimo')),
+        montoMinimo: parseFloat(formData.get('montoMinimo')),
+        montoMaximo: parseFloat(formData.get('montoMaximo')),
+        credInicial: parseFloat(formData.get('credInicial')),
+        requiereSeguro: formData.get('requiereSeguro') === 'true',
+        porcSeguro: parseFloat(formData.get('porcSeguro')),
+        porcMora: parseFloat(formData.get('porcMora')),
+        estado: true,
+        fechaCrea: new Date().toISOString(),
+        userCrea: "ADMIN",
+        fechaModif: null,
+        userModif: null
+      };
+
+      try {
+        const url = editandoId ? `${API_URL}/${editandoId}` : API_URL;
+        const method = editandoId ? 'PUT' : 'POST';
+        const res = await fetch(url, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        if (!res.ok) throw new Error('Error al guardar producto');
+        await cargarProductos();
+        modal.hide();
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+
+    async function eliminarProducto(id) {
+      if (!confirm('¿Seguro que deseas eliminar este producto?')) return;
+      try {
+        const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+        if (!res.ok) throw new Error('Error al eliminar producto');
+        await cargarProductos();
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+
+    cargarProductos();
+  </script>
+</body>
+</html>
