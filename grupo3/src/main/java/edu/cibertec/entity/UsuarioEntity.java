@@ -50,4 +50,13 @@ public class UsuarioEntity {
 
     @Column(name = "fecha_creacion")
     private Date fechaCreacion;
+
+    @Column(name = "usuario_creacion")
+    private String usrCreacion;
+
+    @Column(name = "fecha_modificacion")
+    private Date fechaModif;
+
+    @Column(name = "usuario_modificacion")
+    private String usrModif;
 }
