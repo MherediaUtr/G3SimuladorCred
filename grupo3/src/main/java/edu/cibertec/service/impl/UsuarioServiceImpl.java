@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import edu.cibertec.entity.UsuarioEntity;
@@ -15,6 +18,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService{
     public final UsuarioRepository usuarioRepository;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     public UsuarioEntity validarUsuario(String usuario, String contrasena){
         return usuarioRepository.validarUsuario(usuario, contrasena);
@@ -23,6 +28,8 @@ public class UsuarioServiceImpl implements UsuarioService{
     @Override
     public UsuarioEntity registrarUsuario(UsuarioEntity usuarioEntity) {
         LocalDate fechaActual = LocalDate.now();
+        String encodedPassword = passwordEncoder.encode(usuarioEntity.getContrasena());
+        usuarioEntity.setContrasena(encodedPassword);
         usuarioEntity.setEstado(true); // Assuming new users are active by default
         usuarioEntity.setRol("CLIENTE");
         usuarioEntity.setFechaCreacion(new Date(fechaActual.getYear(), fechaActual.lengthOfMonth(), fechaActual.getDayOfMonth()));

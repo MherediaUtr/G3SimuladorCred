@@ -21,15 +21,13 @@ public class UsuarioDetailsServiceImpl implements UserDetailsService{
     
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
         UsuarioEntity usuario = userRepository.findByUsuarioAndEstado(username,true);
-        System.out.println("el user name: " + username);
         List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
         if(usuario != null){
             roles.add(new SimpleGrantedAuthority("ROLE_" + usuario.getRol()));
-           System.out.println("usaurio hallado: " + usuario.getUsuario()+" "+usuario.getContrasena());
         }else{
             throw new UsernameNotFoundException("Usuario no encontrado");
         }
-         UserDetails userDetails = new User(usuario.getUsuario(), "{noop}"+usuario.getContrasena(), roles);
+         UserDetails userDetails = new User(usuario.getUsuario(), usuario.getContrasena(), roles);
         return userDetails;
     }
 }
