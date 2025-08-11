@@ -29,6 +29,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+        http.cors(Customizer.withDefaults());
         http.sessionManagement(sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); //La sesion no queda almacenada en el servidor
         http.csrf(c->c.disable());
         http.authorizeHttpRequests( //Aqui se puede personalizar los acceso de un rol especifico

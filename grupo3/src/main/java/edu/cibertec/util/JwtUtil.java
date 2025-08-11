@@ -9,10 +9,13 @@ import java.util.Map;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Component;
+
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -20,10 +23,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import static java.util.Collections.emptyList;
 
+@Component
 public class JwtUtil {
     // Clave secreta para firmar el JWT
     //private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512); // Las aplicaciones deben de estar en el mismo contexto
-    private static final Key SECRET_KEY = Keys.hmacShaKeyFor("GRUPO3-APLICACION-FINANCIERA-1234".getBytes());               
+    private static SecretKey SECRET_KEY; //= Keys.hmacShaKeyFor("GRUPO3-APLICACION-FINANCIERA-1234".getBytes());     
+    
+    public JwtUtil(@Value("${security.jwt.secret-key}") String secretKeyString) {
+        this.SECRET_KEY = Keys.hmacShaKeyFor(secretKeyString.getBytes());
+    }
+
     // Método para crear el JWT y enviarlo al cliente en el header de la respuesta
     public static void generarToken(HttpServletResponse res, String userName, String role) {
         String token = Jwts.builder()
@@ -34,7 +43,7 @@ public class JwtUtil {
                 // Se asigna un tiempo de expiración de 1 minuto
                 .expiration(new Date(System.currentTimeMillis() + 60000))
                 // Hash con el que firmaremos la clave
-                .signWith(SECRET_KEY)
+                .signWith(SECRET_KEY, Jwts.SIG.HS256)
                 .compact();
         //agregamos al encabezado el token
         res.addHeader("Authorization", "Bearer " + token);
