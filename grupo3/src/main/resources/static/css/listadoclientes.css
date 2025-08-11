@@ -1,0 +1,34 @@
+.clientes-container {
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    padding: 30px 20px 20px 20px;
+}
+.clientes-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+}
+#tablaClientes {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+#tablaClientes th, #tablaClientes td {
+    border: 1px solid #ddd;
+    padding: 10px 8px;
+    text-align: left;
+}
+#tablaClientes th {
+    background: #1976d2;
+    color: #fff;
+}
+#tablaClientes tr:nth-child(even) {
+    background: #f2f2f2;
+}
+#tablaClientes tr:hover {
+    background: #e3f0fc;
+}
