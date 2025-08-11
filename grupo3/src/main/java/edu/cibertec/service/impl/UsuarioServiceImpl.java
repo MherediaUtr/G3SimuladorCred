@@ -32,8 +32,8 @@ public class UsuarioServiceImpl implements UsuarioService{
         usuarioEntity.setContrasena(encodedPassword);
         usuarioEntity.setEstado(true); // Assuming new users are active by default
         usuarioEntity.setRol("CLIENTE");
-        usuarioEntity.setFechaCreacion(new Date(fechaActual.getYear(), fechaActual.lengthOfMonth(), fechaActual.getDayOfMonth()));
-        usuarioEntity.setFechaModif(new Date(fechaActual.getYear(), fechaActual.lengthOfMonth(), fechaActual.getDayOfMonth()));
+        usuarioEntity.setFechaCreacion(new Date(fechaActual.getYear()-1900, fechaActual.lengthOfMonth(), fechaActual.getDayOfMonth()));
+        usuarioEntity.setFechaModif(new Date(fechaActual.getYear()-1900, fechaActual.lengthOfMonth(), fechaActual.getDayOfMonth()));
         usuarioEntity.setUsrCreacion(usuarioEntity.getUsuario());
         usuarioEntity.setUsrModif(usuarioEntity.getUsuario());
         return usuarioRepository.save(usuarioEntity);
